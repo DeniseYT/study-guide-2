@@ -43,6 +43,12 @@ def without_duplicates(words):
     """
    
 
+    if len(words) == 0:
+        return []
+    else:
+        return sorted(set(words))
+
+print(without_duplicates([]))
 
 
 def find_unique_common_items(items1, items2):

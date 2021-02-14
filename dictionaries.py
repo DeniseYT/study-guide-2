@@ -83,8 +83,18 @@ def find_unique_common_items(items1, items2):
         >>> sorted(find_unique_common_items(["2", "1", 2], [2, 1]))
         [2]
     """
+  
+    new_list = []
 
-    return set()
+    for x in items1:
+        for y in items2:
+            if x == y:
+                new_list.append(x)
+
+    return set(new_list)
+
+# Why print out dictionary?
+print(find_unique_common_items(["2", "1", 2], [2, 1]))
 
 
 def get_sum_zero_pairs(numbers):

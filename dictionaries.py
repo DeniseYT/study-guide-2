@@ -123,8 +123,18 @@ def get_sum_zero_pairs(numbers):
         >>> sort_pairs( get_sum_zero_pairs([1, 3, -1, 1, 1, 0]) )
         [[-1, 1], [0, 0]]
     """
+    new_list = []
 
-    return []
+    for x in range(len(numbers)-1):
+        for y in range(len(numbers)-1):
+            if numbers[x] + numbers[y] == 0:
+                new_list.extend([numbers[x], numbers[y]])
+
+    return set(new_list)
+
+print(get_sum_zero_pairs([1, 2, 3, -2, -1])) # missed 1, -1 
+print(get_sum_zero_pairs([1, 2, 3, -2, -1, 1, 1])) #working fine
+
 
 
 def top_chars(phrase):

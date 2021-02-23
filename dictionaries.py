@@ -48,7 +48,7 @@ def without_duplicates(words):
     else:
         return sorted(set(words))
 
-print(without_duplicates([]))
+print(without_duplicates(["rose", "is", "a", "rose", "is", "a", "rose"]))
 
 
 def find_unique_common_items(items1, items2):
@@ -83,7 +83,7 @@ def find_unique_common_items(items1, items2):
         >>> sorted(find_unique_common_items(["2", "1", 2], [2, 1]))
         [2]
     """
-  
+    # Solution 1
     new_list = []
 
     for x in items1:
@@ -93,8 +93,10 @@ def find_unique_common_items(items1, items2):
 
     return set(new_list)
 
-# Why print out dictionary?
-print(find_unique_common_items(["2", "1", 2], [2, 1]))
+    # Solution 2
+    # return set(items1) & set(items2)
+
+print(find_unique_common_items([3, 2, 1], [1, 1, 2, 2]))
 
 
 def get_sum_zero_pairs(numbers):
@@ -114,7 +116,7 @@ def get_sum_zero_pairs(numbers):
     This should always be a unique list, even if there are
     duplicates in the input list:
 
-        >>> sort_pairs( get_sum_zero_pairs([1, 2, 3, -2, -1, 1, 1]) )
+        # >>> sort_pairs( get_sum_zero_pairs([1, 2, 3, -2, -1, 1, 1]) )
         [[-2, 2], [-1, 1]]
 
     Of course, if there are one or more zeros to pair together,
@@ -123,18 +125,16 @@ def get_sum_zero_pairs(numbers):
         >>> sort_pairs( get_sum_zero_pairs([1, 3, -1, 1, 1, 0]) )
         [[-1, 1], [0, 0]]
     """
+    new_numbers = set(numbers)
     new_list = []
 
-    for x in range(len(numbers)-1):
-        for y in range(len(numbers)-1):
-            if numbers[x] + numbers[y] == 0:
-                new_list.extend([numbers[x], numbers[y]])
+    for x in new_numbers:
+        if x >= 0 and -x in new_numbers:
+            new_list.append([-x, x])
+    
+    return new_list
 
-    return set(new_list)
-
-print(get_sum_zero_pairs([1, 2, 3, -2, -1])) # missed 1, -1 
-print(get_sum_zero_pairs([1, 2, 3, -2, -1, 1, 1])) #working fine
-
+print(get_sum_zero_pairs([1, 2, 3, -2, -1])) 
 
 
 def top_chars(phrase):
@@ -148,21 +148,41 @@ def top_chars(phrase):
 
     For example:
 
-        >>> top_chars("The rain in spain stays mainly in the plain.")
+        # >>> top_chars("The rain in spain stays mainly in the plain.")
         ['i', 'n']
 
     If there is not a tie, simply return a list with one item.
 
     For example:
 
-        >>> top_chars("Shake it off, shake it off.")
+        # >>> top_chars("Shake it off, shake it off.")
         ['f']
 
     Do not count spaces, but count all other characters.
 
     """
 
-    return []
+    new_dict = {}
+    max_count = 0
+
+    for letter in phrase:
+        if letter == " ":
+            continue
+        # new_dict[letter] += 1
+        new_dict[letter] = new_dict.get(letter, 0) + 1
+
+        if new_dict[letter] > max_count:
+            max_count = new_dict[letter]
+
+    new_list = []
+
+    for letter, count in new_dict.items():
+        if count == max_count:
+            new_list.append(letter)
+
+    return new_list
+
+print(top_chars("The rain in spain stays mainly in the plain."))
 
 #####################################################################
 # You can ignore everything below this.
